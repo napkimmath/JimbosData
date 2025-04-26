@@ -1,0 +1,10 @@
+{
+  "id": "JimbosData",
+  "name": "Jimbo's Data",
+  "version": "0.1.0",
+  "description": "Tracking Balatro data, one nope at a time",
+  "author": ["napkimmath"],
+  "prefix": "jimbosdata",
+  "main_file": "init.lua",
+  "enabled": true
+}
