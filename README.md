@@ -1,6 +1,6 @@
 # JimbosData
 
-New to modding? Follow the instructions [[here]](https://steamcommunity.com/sharedfiles/filedetails/?id=3400691352).
+New to modding? Follow the instructions [here](https://steamcommunity.com/sharedfiles/filedetails/?id=3400691352).
 
 You'll need the following before this mod will work:
 1. [Lovely Injector](https://github.com/ethangreen-dev/lovely-injector)
