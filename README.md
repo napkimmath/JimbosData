@@ -9,3 +9,5 @@ You'll need the following before this mod will work:
 This mod is currently being developed, more features will be added over time.
 
 It exports game data to a CSV on your computer. Currently it has the functionality to export game start data (like seed, deck, etc) and game over data (like cards played, defeated by, etc).
+
+Once installed, make sure the manifest.json, init.lua, and JimbosData.lua are directly in ... /Mods/JimbosData/
