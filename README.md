@@ -8,6 +8,8 @@ You'll need the following before this mod will work:
 
 This mod is currently being developed, more features will be added over time.
 
-It exports game data to a CSV on your computer. Currently it has the functionality to export game start data (like seed, deck, etc) and game over data (like cards played, defeated by, etc).
+The purpose of Jimbo's data is to export game data to a CSV on your computer. Currently it has the functionality to export game start data (like seed, deck, etc) and game over data (like cards played, defeated by, etc). Once installed, make sure the manifest.json, init.lua, and JimbosData.lua are directly in ... /Mods/JimbosData/
 
-Once installed, make sure the manifest.json, init.lua, and JimbosData.lua are directly in ... /Mods/JimbosData/
+I went over the humble beginnings [during a recent stream](https://youtu.be/TM2Eoaf_byo).
+
+You can contact me by [starting a discussion](https://github.com/napkimmath/napkimmath/discussions) right here on GitHub! 
