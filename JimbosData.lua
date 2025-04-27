@@ -69,7 +69,7 @@ end
 -- Ensure the directory exists
 -- If it doesn't, create it
 -- This is used to create the directory for the CSV files
--- The path is Mods/JimbosData/
+-- The path is Mods/jimbos-data-logs/
 local function ensure_dir(path)
     if not love.filesystem.getInfo(path) then
         love.filesystem.createDirectory(path)
@@ -78,7 +78,7 @@ end
 
 -- Ensure the folders for the CSV files exist
 -- This is used to create the directory for the CSV files
--- The path is Mods/JimbosData/<profile>/<dataset>
+-- The path is Mods/jimbos-data-logs/<profile>/<dataset>
 -- The dataset is the name of the dataset (like Run_Start or Run_End)
 local function ensure_folders(profile, dataset)
     local profile_dir = csv_path_root .. "/" .. profile
@@ -90,7 +90,7 @@ local function ensure_folders(profile, dataset)
 end
 
 -- This is used to write the run info to a CSV file
--- The path is Mods/JimbosData/<profile>/Run_Start/Run_Start_<YYYY-MM>.csv
+-- The path is Mods/jimbos-data-logs/<profile>/Run_Start/Run_Start_<YYYY-MM>.csv
 -- The timestamp is the current date and time in UTC (when the run started)
 local function write_run_csv()
     local info = get_run_info()
@@ -116,7 +116,7 @@ local function write_run_csv()
 end
 
 -- This is used to write the end run info to a CSV file
--- The path is Mods/JimbosData/<profile>/Run_End/Run_End_<YYYY-MM>.csv
+-- The path is Mods/jimbos-data-logs/<profile>/Run_End/Run_End_<YYYY-MM>.csv
 -- The timestamp is the current date and time in UTC (when the run ended)
 local function write_end_run_csv()
     local info = get_run_info()
@@ -156,7 +156,7 @@ end
 -- Hook into Game:start_run
 -- This is called when the game starts a new run
 -- It captures the run info and writes it to a CSV file
--- The path is Mods/JimbosData/<profile>/Run_Start/Run_Start_<YYYY-MM>.csv
+-- The path is Mods/jimbos-data-logs/<profile>/Run_Start/Run_Start_<YYYY-MM>.csv
 local original_start_run = Game.start_run
 function Game:start_run(args)
     local data = original_start_run(self, args)
@@ -175,7 +175,7 @@ end
 -- Hook into Game:update_game_over
 -- This is called when the game ends
 -- It captures the end run info and writes it to a CSV file
--- The path is Mods/JimbosData/<profile>/Run_End/Run_End_<YYYY-MM>.csv
+-- The path is Mods/jimbos-data-logs/<profile>/Run_End/Run_End_<YYYY-MM>.csv
 local original_end_run = Game.update_game_over
 function Game:update_game_over(dt)
     if not run_ended then
