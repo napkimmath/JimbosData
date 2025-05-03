@@ -16,11 +16,15 @@
 
 function SMODS.INIT()
     print("🔧 [JimbosData] INIT loading...")
-    local path = "Mods/JimbosData/JimbosData.lua"
-    local ok, err = pcall(function() dofile(path) end)
+    
+    local ok, err = pcall(function() 
+        dofile("Mods/JimbosData/JimbosData.lua")
+        dofile("Mods/JimbosData/joker_tracker.lua")
+    end)
+    
     if not ok then
-        print("❌ Error loading JimbosData:", err)
+        print("❌ Error loading Jimbos's Data files:", err)
     end
 end
-
+    
 SMODS.INIT()
