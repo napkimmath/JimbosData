@@ -36,8 +36,10 @@ local function get_run_info()
     local stake = SMODS.stake_from_index(G.GAME.stake) or "UNKNOWN"
     local profile_str = get_profile_name()
     local deck_str = G.GAME.selected_back.name
+    local run_id = profile_str .. "_" .. seed .. "_" .. deck_str .. "_" .. stake
 
     return {
+        run_id = run_id,
         profile = profile_str,
         seed = seed,
         stake = stake,
@@ -60,8 +62,10 @@ local function get_end_run_info()
         furthest_ante = G.GAME.round_scores["furthest_ante"].amt,
         furthest_round = G.GAME.round_scores["furthest_round"].amt,
         best_hand = G.GAME.round_scores["hand"].amt,
-	      dollars = G.GAME.dollars,
-	      won = G.GAME.won,
+        --most_played_poker_hand = G.GAME.current_round.most_played_poker_hand,
+        --most_played_poker_hand_times = G.GAME.round_scores["poker_hand"].amt,
+	    dollars = G.GAME.dollars,
+	    won = G.GAME.won,
         defeated_by = defeated_by
     }
 end
@@ -124,17 +128,16 @@ local function write_end_run_csv()
     local dataset_dir_end = ensure_folders(info.profile, dataset_name_end)
     local filename_end = string.format("%s/%s_%s.csv", dataset_dir_end, dataset_name_end, get_date_suffix())
     local existing_end = love.filesystem.read(filename_end)
-    local needs_header_end = existing_end == nil or not existing_end:find("profile,seed,stake,deck,end_tmst,won,best_hand,cards_played,cards_discarded,cards_purchased,times_rerolled,new_collection,furthest_ante,furthest_round,dollars,defeated_by", 1, true)
+    local needs_header_end = existing_end == nil or not existing_end:find("run_id,end_tmst,won,best_hand,cards_played,cards_discarded,cards_purchased,times_rerolled,new_collection,furthest_ante,furthest_round,dollars,defeated_by", 1, true)
 
     local row_end = string.format(
-        "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n",
-        info.profile,
-        info.seed,
-        info.stake,
-        info.deck,
+        "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n",
+        info.run_id,
         os.date("!%Y-%m-%dT%H:%M:%SZ"),
         end_info.won,
         end_info.best_hand,
+        --end_info.most_played_poker_hand,
+        --end_info.most_played_poker_hand_times,
         end_info.cards_played,
         end_info.cards_discarded,
         end_info.cards_purchased,
@@ -142,12 +145,12 @@ local function write_end_run_csv()
         end_info.new_collection,
         end_info.furthest_ante,
         end_info.furthest_round,
-	      end_info.dollars,
+	    end_info.dollars,
         end_info.defeated_by
     )
 
     if needs_header_end then
-        love.filesystem.write(filename_end, "profile,seed,stake,deck,end_tmst,won,best_hand,cards_played,cards_discarded,cards_purchased,times_rerolled,new_collection,furthest_ante,furthest_round,dollars,defeated_by\n" .. row_end)
+        love.filesystem.write(filename_end, "run_id,end_tmst,won,best_hand,cards_played,cards_discarded,cards_purchased,times_rerolled,new_collection,furthest_ante,furthest_round,dollars,defeated_by\n" .. row_end)
     else
         love.filesystem.append(filename_end, row_end)
     end
