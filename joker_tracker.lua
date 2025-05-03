@@ -5,6 +5,7 @@ local dataset = "Joker"
 local previous_jokers = {}
 local tracked_jokers = {}
 local joker_counter = 0
+local total_joker_counter = 0
 local joker_change_context = nil
 
 -- Utilities to get file name and structure
@@ -139,7 +140,9 @@ function get_joker_change_cause()
         cause = "sandbox"
     elseif state == 999 then
         cause = "booster"
-    else cause ="unknown"
+    else 
+        print("Unknown state: " .. tostring(state))
+        cause = "unknown"
     end
 
     return cause
@@ -176,6 +179,13 @@ local function joker_changed(prev, curr)
 end
 
 -- function to combine all the joker functions together for one row in the CSV
+
+--todo: test duplicate of the same joker
+--todo: selling effect (ex diet cola)
+--todo: tie joker_in_run to the original joker_in_run if any modifications or sell/destory
+--todo: identify states for riff-raff
+--todo: identify cause for judgement (will have when used)
+--todo: identify cause for joker destruction (ex gros michel)
 function update_joker_tracker()
     if not G or not G.jokers or not G.jokers.cards then return end
     local current = snapshot_jokers()
@@ -194,20 +204,18 @@ function update_joker_tracker()
             curr_by_id[cur.id] = cur
         end
     end
-    --todo: test duplicate of the same joker
-    --todo: test joker change (ex via wheel of fortune)
-    --todo: selling effect (ex diet cola, luchador)
-    --todo: test it works correctly when created via riff-raff, for ex
+
     for i, cur in ipairs(current) do
         local prev = tracked_jokers[cur.id]
         if not prev then
             joker_counter = joker_counter + 1
+            total_joker_counter = total_joker_counter + 1
             tracked_jokers[cur.id] = cur
             write_joker_csv({
                 run_joker_id = run_info.run_id .. "-" .. joker_counter,
                 joker_first_available = G.GAME.round_resets.ante .. "-" .. G.GAME.round .. "-" .. change_cause,
                 joker_last_available = "",
-                joker_in_run = i,
+                joker_in_run = total_joker_counter,
                 joker_name = cur.name,
                 joker_change = joker_change_context or "add",
                 joker_change_cause = change_cause,
@@ -270,6 +278,7 @@ function Game:start_run(args)
             previous_jokers = snapshot_jokers()
             tracked_jokers = {}
             joker_counter = 0
+            total_joker_counter = 0
             update_joker_tracker()
             return true
         end,
@@ -294,7 +303,6 @@ local function wrap_tracker(func, cause)
     end
 end
 
---sell and remove are not working as expected, todo: differentiate
 Card.add_to_deck = wrap_tracker(Card.add_to_deck, "add")
 Card.sell_card = wrap_tracker(Card.sell_card, "sold or destroyed")
 Card.remove_from_deck = wrap_tracker(Card.remove_from_deck, "sold or destroyed")
