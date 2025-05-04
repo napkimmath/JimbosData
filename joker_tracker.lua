@@ -115,13 +115,13 @@ function get_joker_change_cause()
     if state == G.STATES.SHOP then
         cause = "shop"
     elseif state == G.STATES.SPECTRAL_PACK then
-        cause = "riff-raff"
+        cause = "spectral pack"
     elseif state == G.STATES.TAROT_PACK then
-        cause = "tarot"
+        cause = "tarot pack"
     elseif state == G.STATES.PLANET_PACK then
-        cause = "planet"
+        cause = "planet pack"
     elseif state == G.STATES.BUFFOON_PACK then
-        cause = "buffoon"
+        cause = "buffoon pack"
     elseif state == G.STATES.NEW_ROUND then
         if G.GAME and G.GAME.current_round and G.GAME.current_round.boss_reward_joker then
             cause = "boss_reward"
