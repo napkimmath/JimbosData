@@ -636,7 +636,6 @@ end
 -- `target_cards_list` can be a list of card objects if the consumable affects multiple.
 -- `outcome_summary` is a string describing what happened
 function ConsumableTracker.log_consumable_used(consumable_card_obj, used_method, target_card_obj_or_list, outcome_summary)
-    print("🔧 [JimbosData|ConsumableTracker|log_consumable_used] Start. Consumable: " .. tostring(consumable_card_obj and consumable_card_obj.config and consumable_card_obj.config.center_key) .. ", Method: " .. tostring(used_method))
     if not ConsumableTracker.run_info_snapshot then
         print("🚨 [JimbosData|ConsumableTracker|log_consumable_used] run_info_snapshot is nil. Aborting.")
         return
@@ -723,7 +722,6 @@ end
 -- Specific wrapper for consumables played from hand/area
 -- `target_card_objs_list` is a list of card objects that were potentially targeted
 function ConsumableTracker.log_consumable_used_from_play(consumable_card_obj, used_method_prefix, target_card_objs_list)    if not consumable_card_obj then return end
-    print("▶️ [JimbosData|ConsumableTracker|log_consumable_used_from_play] Consumable: " .. tostring(consumable_card_obj.config and consumable_card_obj.config.center_key) .. ", Method Prefix: " .. tostring(used_method_prefix) .. ", Targets: " .. tostring(target_card_objs_list and #target_card_objs_list or 0))
     if not ConsumableTracker.run_info_snapshot then
         print("🚨 [JimbosData|ConsumableTracker|log_consumable_used_from_play] run_info_snapshot is nil. Aborting.")
         return
