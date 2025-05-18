@@ -856,12 +856,12 @@ function ConsumableTracker.write_playing_card_csv(card_event_data)
     end
     local dataset_dir = tracker_helpers.ensure_folders(ConsumableTracker.run_info_snapshot.profile, ConsumableTracker.playing_card_dataset)
     local filename = string.format("%s/%s_%s.csv", dataset_dir, ConsumableTracker.playing_card_dataset, tracker_helpers.get_date_suffix())
-    local header = "run_id,run_card_id,card_in_run_uid,run_card_event_id,ante,round,event_type,suit,rank,edition,enhancement,seal,sticker,value_mult_add,value_chips_add,change_cause_type,change_cause_name,details,event_tmst\n"
+    local header = "run_id,run_card_id,card_in_run_uid,run_card_event_id,ante,round,event_type,suit,rank,edition,enhancement,seal,value_mult_add,value_chips_add,change_cause_type,change_cause_name,details,event_tmst\n"
     local file_info = love.filesystem.getInfo(filename)
     local needs_header = not file_info or file_info.size == 0
 
     local row = string.format(
-        "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n",
+        "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n",
         card_event_data.run_id,
         card_event_data.run_card_id,            -- run_id-PC_# (unique log entry ID)
         card_event_data.card_in_run_uid,        -- PC_# (persistent card instance ID)
@@ -874,7 +874,6 @@ function ConsumableTracker.write_playing_card_csv(card_event_data)
         card_event_data.edition or "",
         card_event_data.enhancement or "",
         card_event_data.seal or "",
-        card_event_data.sticker or "", -- Stickers usually on Jokers, but field is there
         card_event_data.value_mult_add or 0,
         card_event_data.value_chips_add or 0,
         card_event_data.change_cause_type or "Unknown", -- "HOW"
@@ -1049,7 +1048,6 @@ function ConsumableTracker.log_playing_card_event(card_obj, event_type, cause_ty
         edition = card_details.edition,
         enhancement = card_details.enhancement,
         seal = card_details.seal,
-        sticker = card_details.sticker, -- Not on playing cards but schema allows
         value_mult_add = card_details.value_mult_add or 0, -- Fetched by get_card_details
         value_chips_add = card_details.value_chips_add or 0, -- Fetched by get_card_details
         change_cause_type = cause_type, -- HOW
