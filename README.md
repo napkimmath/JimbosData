@@ -12,13 +12,15 @@ This mod is currently being developed, more features will be added over time.
 
 The purpose of Jimbo's data is to export game data to a CSV on your computer - see releases below to get the full scope. Once installed, make sure the manifest.json and all .lua files are directly in ... /Mods/JimbosData/
 
-I went over the humble beginnings during a recent stream - [full walkthrough](https://youtu.be/TM2Eoaf_byo) and [tl;dr version](https://youtu.be/4EKPTbHXVyA).
+I went over the humble beginnings during recent streams:
+* [In depth walkthrough and live demo for version 1.0.0](https://www.youtube.com/live/2qSCN6JGgGU?t=216s)
+* [Full walkthrough](https://youtu.be/TM2Eoaf_byo) and [tl;dr version](https://youtu.be/4EKPTbHXVyA) for version 0.1.0
 
 You can contact me by [starting a discussion](https://github.com/napkimmath/napkimmath/discussions) right here on GitHub!
 
 ---
 
-## Releases
+## Versions
 
 ### 1.0.0
 
