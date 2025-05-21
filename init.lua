@@ -253,9 +253,11 @@ function SMODS.INIT()
                             if jimbosdata.jimbos_data_module and jimbosdata.jimbos_data_module.write_end_run_csv then
                                 jimbosdata.jimbos_data_module.write_end_run_csv()
                             end
-                        
+
                             -- Log the final round's data if it's a game over scenario
                             if jimbosdata.Score and jimbosdata.Score.write_round_csv and game_over_cache_round > 0 then
+                                -- This block should only execute if we are indeed logging game over stats,
+                                -- to avoid duplicating the round log made by update_new_round for an Ante 8 win.
                                 jimbosdata.prev_round_for_log = game_over_cache_round
                                 jimbosdata.prev_ante_for_log = game_over_cache_ante
                                 jimbosdata.prev_hands_played_for_log = game_over_cache_hands
@@ -349,7 +351,6 @@ function SMODS.INIT()
                     else
                         jimbosdata.prev_ante_for_log = 1 -- Absolute fallback
                     end
-                    print(string.format("⚠️ [JimbosData|update_new_round] Corrected ante from %s to %s (from %s) for round %s", tostring(original_bad_ante), tostring(jimbosdata.prev_ante_for_log), corrected_ante_source, tostring(jimbosdata.prev_round_for_log)))
                 end
 
                 jimbosdata.prev_hands_played_for_log = G.GAME.current_round and G.GAME.current_round.hands_played or 0
@@ -374,11 +375,10 @@ function SMODS.INIT()
                 -- Check for Ante 8 win condition to log Run_End immediately
                 if G.GAME.won == true and not jimbosdata.ante_8_win_logged_for_run then
                     -- This means Ante 8 boss was just defeated
+                    jimbosdata.ante_8_win_logged_for_run = true -- Mark as logged/detected immediately
                     G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.6, func = function() -- Delay to ensure all game states are settled
                         if jimbosdata.jimbos_data_module and jimbosdata.jimbos_data_module.write_end_run_csv then
-                            print("🏆 [JimbosData] Ante 8 win detected by update_new_round. Logging Run_End data.")
                             jimbosdata.jimbos_data_module.write_end_run_csv()
-                            jimbosdata.ante_8_win_logged_for_run = true -- Mark as logged
                         end
                         return true
                     end }))
