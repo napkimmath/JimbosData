@@ -55,10 +55,6 @@ In addition to additional data, I also plan on creating SQL and Python templates
 
 ---
 
-Follow me on [Twitch](https://www.twitch.tv/napkimmath) and subscribe on [YouTube](https://www.youtube.com/@NapKimMath) to see it in action!
-
----
-
 ☕ If this project helped you or you'd like to support future work, [buy me a Ko-fi](https://ko-fi.com/napkimmath)!
 
 Or just drop a ⭐ and say hi! 😊
